@@ -4,29 +4,33 @@
 #include <stdexcept>
 #include <vector>
 #include "node.h"
+#include <iomanip>
+#include <list>
+#include <map>
+
 using namespace std;
 
 template <typename T>
 class Matrix {
 private:
-    unsigned rows, columns;
-    vector<IndexNode<T>*> MyRows;
-    vector<IndexNode<T>*> MyColumns;
+    vector<IndexNode<T>* > MyRows, MyColumns;
+    unsigned Rows, Columns;
 
-    Node<T>* Find(int row, int column){
-        if (row >= rows or column >= columns or column<0 or row<0)
-            return nullptr;
-        Node<T>* begin = MyColumns[column]->link;
-        while (begin){
-            if (begin->row == row)
-                return begin;
-            begin = begin->down;
+    Node<T>* Find(unsigned row, unsigned column) const {
+        if (row >= Rows or column >= Columns or column<0 or row<0)
+            throw out_of_range("Please check your input");
+
+        Node<T>* currentNode = MyRows[row]->link;
+        while (currentNode) {
+            if (currentNode->column == column)
+                return currentNode;
+            currentNode = currentNode->next;
         }
         return nullptr;
     }
 
     Node<T>* FindPrevColumn(int row, int column){
-        if (row >= rows or column >= columns or column<0 or row<0)
+        if (row >= Rows or column >= Columns or column<0 or row<0)
             throw invalid_argument("Index out of range");
         Node<T>* begin = MyColumns[column]->link;
         while(begin){
@@ -39,7 +43,7 @@ private:
     }
 
     Node<T>* FindPrevRow(int row, int column){
-        if (row >= rows or column >= columns or column<0 or row<0)
+        if (row >= Rows or column >= Columns or column<0 or row<0)
             throw invalid_argument("Index out of range");
         Node<T>* begin = MyColumns[column]->link;
         while(begin){
@@ -54,18 +58,18 @@ private:
 
 
 public:
-    Matrix(unsigned rows, unsigned columns):rows(rows),columns(columns){
-        for(unsigned i=0;i<rows;i++)
+    Matrix(unsigned rows, unsigned columns) : Rows(rows), Columns(columns) {
+        for (unsigned i = 0; i < rows; ++i)
             MyRows.push_back(new IndexNode<T>(i));
 
-        for(unsigned i=0;i<columns;i++)
+        for (unsigned i = 0; i < columns; ++i)
             MyColumns.push_back(new IndexNode<T>(i));
     }
 
-    void set(int row, int column, T data){
-        if(row>rows or column>=columns or row<0 or column<0)
-            throw  out_of_range("Index out of range, please check your input");
 
+    void set(int row, int column, T data){
+        if (row >= Rows or column >= Columns or column<0 or row<0)
+            throw  out_of_range("Index out of range, please check your input");
         else{
             IndexNode<T>* ColumnPosition=MyColumns[column], *RowPosition=MyRows[row];
             auto flag=Find(row,column),PrevUp=FindPrevColumn(row,column), PrevLeft=FindPrevRow(row,column);
@@ -116,35 +120,54 @@ public:
         }
     }
 
-
-    T operator()(unsigned row, unsigned column){
+    T operator()(unsigned row, unsigned column) const {
         if(Find(row,column))
-            return Find(row,column)->getData();
+            return Find(row,column)->data;
         else
             return 0;
     }
 
-    Matrix<T> operator*(T scalar) {
-        Matrix<T> result(rows,columns);
-        
+
+
+    Matrix<T> operator*(T scalar) const {
+        Matrix ImTheFutureOfThisFunction(Rows,Columns);
+        for(auto i=0;i<Rows;i++){
+            for(auto y=0;y<Columns;y++){
+                ImTheFutureOfThisFunction.set(i,y,this->operator()(i,y)*scalar);
+            }
+        }
+        return ImTheFutureOfThisFunction;
     }
 
-    Matrix<T> operator*(Matrix<T> other){}
-    Matrix<T> operator+(Matrix<T> other) { }
-    Matrix<T> operator-(Matrix<T> other) { }
-    Matrix<T> transpose() { }
-    void print(){
-        for(auto i=0;i<rows;i++){
-            for(auto y=0;y<columns;y++)
+    Matrix<T> operator*(Matrix<T> &other) const {
+
+    }
+    Matrix<T> operator+(Matrix<T> &other) const {
+
+    }
+    Matrix<T> operator-(Matrix<T> &other) const {
+
+    }
+    Matrix<T> transpose() const {
+
+    }
+
+    void print() const {
+        for(auto i=0;i<Rows;i++){
+            for(auto y=0;y<Columns;y++)
                 cout<<this->operator()(i,y)<<" ";
             cout<<endl;
         }
     }
 
-    ~Matrix(){
 
+    ~Matrix() {
     }
 };
 
+template<class T>
+void Node<T>::setData(T t) {
+    Node::data = t;
+}
 
 #endif //SPARSE_MATRIX_MATRIX_H

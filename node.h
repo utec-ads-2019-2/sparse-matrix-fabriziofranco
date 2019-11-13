@@ -4,46 +4,39 @@
 template <typename T>
 class Matrix;
 
-
-
 template <class T>
 class Node {
 protected:
     T data;
-    int row, column;
+    unsigned row, column;
     Node<T> *next, *down;
 public:
-    Node(int row, int column, T data) : row(row), column(column), data(data), next(nullptr),down(nullptr) {}
+    Node(unsigned row, unsigned column, T data) : row(row), column(column), data(data), next(nullptr),
+                                                                down(nullptr) {}
 
-    void setData(T NewData){
-        data=NewData;
+    void setData(T t);
+
+    ~Node() {
+        next = down = nullptr;
+        data = row = column = 0;
     }
-
-    T getData(){
-        return data;
-    }
-
-    ~Node(){
-        ///FALTA
-        }
-
 
     friend class Matrix<T>;
 };
 
 template <class T>
-
-
 class IndexNode {
 protected:
-    int position;
+    unsigned index;
     Node<T>* link;
 public:
-    explicit IndexNode(int position) : position(position), link(nullptr) {}
+    explicit IndexNode(unsigned index) : index(index), link(nullptr) {}
 
-    ~IndexNode(){
-        ///Falta
+    ~IndexNode() {
+        link = nullptr;
+        index = 0;
     }
+
     friend class Matrix<T>;
 };
 #endif //SPARSE_MATRIX_NODE_H

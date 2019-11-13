@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/fabrizio/Desktop/ADS/sparse-matrix-fabriziofranco/main.cpp
-iostream
--
-tester/tester.h
-/home/fabrizio/Desktop/ADS/sparse-matrix-fabriziofranco/tester/tester.h
-
 /home/fabrizio/Desktop/ADS/sparse-matrix-fabriziofranco/matrix.h
 stdexcept
 -
@@ -19,6 +13,12 @@ vector
 -
 node.h
 /home/fabrizio/Desktop/ADS/sparse-matrix-fabriziofranco/node.h
+iomanip
+-
+list
+-
+map
+-
 
 /home/fabrizio/Desktop/ADS/sparse-matrix-fabriziofranco/mocker/mocker.h
 random
