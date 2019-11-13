@@ -34,6 +34,10 @@ type_traits
 
 /home/fabrizio/Desktop/ADS/sparse-matrix-fabriziofranco/node.h
 
+/home/fabrizio/Desktop/ADS/sparse-matrix-fabriziofranco/tester/tester.cpp
+tester.h
+/home/fabrizio/Desktop/ADS/sparse-matrix-fabriziofranco/tester/tester.h
+
 /home/fabrizio/Desktop/ADS/sparse-matrix-fabriziofranco/tester/tester.h
 stdexcept
 -

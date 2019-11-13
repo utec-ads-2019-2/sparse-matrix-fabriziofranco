@@ -55,6 +55,7 @@ private:
 
 
 
+
 public:
     Matrix(unsigned rows, unsigned columns) : Rows(rows), Columns(columns) {
         for (unsigned i = 0; i < rows; ++i)
@@ -116,7 +117,6 @@ public:
             }
         }
     }
-
     T operator()(unsigned row, unsigned column) const {
         auto element=Find(row,column);
         if(element)
@@ -129,7 +129,8 @@ public:
         Matrix ImTheFutureOfThisFunction(Rows,Columns);
         for(auto i=0;i<Rows;i++){
             for(auto y=0;y<Columns;y++){
-                ImTheFutureOfThisFunction.set(i,y,this->operator()(i,y)*scalar);
+                T data=this->operator()(i,y)*scalar;
+                ImTheFutureOfThisFunction.set(i,y,data);
             }
         }
         return ImTheFutureOfThisFunction;
@@ -223,10 +224,10 @@ public:
     }
     void ImDone(){
         while (!MyColumns.empty()) {
-            auto currentNode = MyColumns.back()->link;
-            while (currentNode) {
-                auto temp = currentNode;
-                currentNode = currentNode->down;
+            auto Node = MyColumns.back()->link;
+            while (Node) {
+                auto temp = Node;
+                Node = Node->down;
                 delete temp;
             }
             MyColumns.pop_back();
