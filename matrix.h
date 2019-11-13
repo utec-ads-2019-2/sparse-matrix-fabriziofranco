@@ -126,7 +126,7 @@ public:
     }
 
     Matrix<T> operator*(T scalar) const {
-        Matrix ImTheFutureOfThisFunction(Rows,Columns);
+        Matrix<T> ImTheFutureOfThisFunction(Rows,Columns);
         for(auto i=0;i<Rows;i++){
             for(auto y=0;y<Columns;y++){
                 T data=this->operator()(i,y)*scalar;
@@ -137,7 +137,7 @@ public:
     }
 
     Matrix<T> operator*(Matrix<T> &other) const {
-        Matrix ImTheFutureOfThisFunction(Rows,other.Columns);
+        Matrix<T> ImTheFutureOfThisFunction(Rows,other.Columns);
 
         if(other.Rows != Columns )
             throw out_of_range("Check your input");
@@ -207,7 +207,7 @@ public:
         return ImTheFutureOfThisFunction;
     }
     Matrix<T> transpose() const {
-        Matrix ImTheFutureOfThisFunction(Columns,Rows);
+        Matrix<T> ImTheFutureOfThisFunction(Columns,Rows);
         for(auto i=0;i<Rows;i++){
             for(auto y=0;y<Columns;y++){
                 ImTheFutureOfThisFunction.set(y,i,this->operator()(i,y));
