@@ -28,7 +28,6 @@ private:
         }
         return nullptr;
     }
-
     Node<T>* FindPrevColumn(int row, int column){
         if (row >= Rows or column >= Columns or column<0 or row<0)
             throw invalid_argument("Index out of range");
@@ -41,7 +40,6 @@ private:
         }
         return nullptr;
     }
-
     Node<T>* FindPrevRow(int row, int column){
         if (row >= Rows or column >= Columns or column<0 or row<0)
             throw invalid_argument("Index out of range");
@@ -140,8 +138,17 @@ public:
     Matrix<T> operator*(Matrix<T> &other) const {
         Matrix ImTheFutureOfThisFunction(Rows,other.Columns);
 
+        if(other.Rows != Columns )
+            throw out_of_range("Check your input");
 
-
+        for(int iterator1=0; iterator1<Rows; iterator1++) {
+            for (int iterator2 = 0; iterator2 < other.Columns; iterator2++) {
+                T cont = 0;
+                for (int iterator3 = 0; iterator3 < Columns; iterator3++)
+                    cont += operator()(iterator1, iterator3) * other.operator()(iterator3, iterator2);
+                ImTheFutureOfThisFunction.set(iterator1,iterator2,cont);
+            }
+        }
         return ImTheFutureOfThisFunction;
     }
 
