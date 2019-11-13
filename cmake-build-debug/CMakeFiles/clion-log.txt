@@ -1,0 +1,4 @@
+/snap/clion/92/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/fabrizio/Desktop/ADS/sparse-matrix-fabriziofranco
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/fabrizio/Desktop/ADS/sparse-matrix-fabriziofranco/cmake-build-debug

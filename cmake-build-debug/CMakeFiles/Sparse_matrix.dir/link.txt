@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Sparse_matrix.dir/main.cpp.o  -o Sparse_matrix 
