@@ -43,7 +43,7 @@ private:
     Node<T>* FindPrevRow(int row, int column){
         if (row >= Rows or column >= Columns or column<0 or row<0)
             throw invalid_argument("Index out of range");
-        Node<T>* begin = MyColumns[column]->link;
+        Node<T>* begin = MyRows[row]->link;
         while(begin){
             if (begin->next)
                 if(begin->next->column>=column)
@@ -53,9 +53,6 @@ private:
         return nullptr;
     }
 
-
-
-
 public:
     Matrix(unsigned rows, unsigned columns) : Rows(rows), Columns(columns) {
         for (unsigned i = 0; i < rows; ++i)
@@ -64,7 +61,6 @@ public:
         for (unsigned i = 0; i < columns; ++i)
             MyColumns.push_back(new IndexNode<T>(i));
     }
-
     void set(int row, int column, T data){
         if (row >= Rows or column >= Columns or column<0 or row<0)
             throw  out_of_range("Index out of range, please check your input");
@@ -120,10 +116,11 @@ public:
     T operator()(unsigned row, unsigned column) const {
         auto element=Find(row,column);
         if(element)
-            return Find(row,column)->data;
+            return element->data;
         else
             return 0;
     }
+
 
     Matrix<T> operator*(T scalar) const {
         Matrix<T> ImTheFutureOfThisFunction(Rows,Columns);
@@ -172,6 +169,7 @@ public:
         }
         return *this;
     }
+
     bool operator==(const Matrix<T> &other) {
         for(auto i=0;i<Rows;i++){
             for(auto y=0;y<Columns;y++){
@@ -181,9 +179,11 @@ public:
         }
         return true;
     }
+
     Matrix<T> operator+(Matrix<T> &other) const {
         if (Rows != other.Rows or Columns != other.Columns)
             throw out_of_range("Check your input");
+
         Matrix<T> ImTheFutureOfThisFunction(Rows,Columns);
 
         for (int i = 0; i < Rows; ++i) {
@@ -215,13 +215,40 @@ public:
         }
         return ImTheFutureOfThisFunction;
     }
-    void print() const {
+    void print() const{
+/*        for(IndexNode<T> *row:MyRows){
+            auto node=row->link;
+            if (node) {
+                for (int j = 0; j < Columns; ++j) {
+                    if (node) {
+                        if (node->column == j) {
+                            cout << node->data<<" ";
+                            node = node->next;
+                        }
+                        else
+                            cout << 0<<" ";
+                    } else
+                        cout << 0<<" ";
+                }
+            cout<<endl;
+            }
+            else{
+                for(auto i=0;i<Columns;i++)
+                    cout<<0<<" ";
+                cout<<endl;
+            }
+        }*/
         for(auto i=0;i<Rows;i++){
             for(auto y=0;y<Columns;y++)
                 cout<<this->operator()(i,y)<<" ";
             cout<<endl;
         }
     }
+
+
+
+
+
     void ImDone(){
         while (!MyColumns.empty()) {
             auto Node = MyColumns.back()->link;
