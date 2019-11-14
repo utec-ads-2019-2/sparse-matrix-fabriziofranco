@@ -216,28 +216,6 @@ public:
         return ImTheFutureOfThisFunction;
     }
     void print() const{
-/*        for(IndexNode<T> *row:MyRows){
-            auto node=row->link;
-            if (node) {
-                for (int j = 0; j < Columns; ++j) {
-                    if (node) {
-                        if (node->column == j) {
-                            cout << node->data<<" ";
-                            node = node->next;
-                        }
-                        else
-                            cout << 0<<" ";
-                    } else
-                        cout << 0<<" ";
-                }
-            cout<<endl;
-            }
-            else{
-                for(auto i=0;i<Columns;i++)
-                    cout<<0<<" ";
-                cout<<endl;
-            }
-        }*/
         for(auto i=0;i<Rows;i++){
             for(auto y=0;y<Columns;y++)
                 cout<<this->operator()(i,y)<<" ";
