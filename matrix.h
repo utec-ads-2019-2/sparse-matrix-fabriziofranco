@@ -180,6 +180,8 @@ public:
         return true;
     }
 
+    // Es mejor trabajar directamente con los punteros que utilizar los operadores sobrecargados, esto por un tema de eficiencia 
+
     Matrix<T> operator+(Matrix<T> &other) const {
         if (Rows != other.Rows or Columns != other.Columns)
             throw out_of_range("Check your input");
